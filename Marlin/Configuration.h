@@ -581,9 +581,9 @@
 //#define MAX31865_SENSOR_OHMS_1      100
 //#define MAX31865_CALIBRATION_OHMS_1 430
 
-#define TEMP_RESIDENCY_TIME         0  // (seconds) Time to wait for hotend to "settle" in M109 ////////// deb changes
-#define TEMP_WINDOW                  1  // (°C) Temperature proximity for the "temperature reached" timer
-#define TEMP_HYSTERESIS              3  // (°C) Temperature proximity considered "close enough" to the target
+#define TEMP_RESIDENCY_TIME        10  // (seconds) BIOPRINTER: Wait 10s at stable temp before M109 returns
+#define TEMP_WINDOW                0.5  // (°C) BIOPRINTER: Tight tolerance for "temperature reached" (±0.5°C)
+#define TEMP_HYSTERESIS            1.0  // (°C) BIOPRINTER: PID stays active within ±1°C of target (precise control)
 
 #define TEMP_BED_RESIDENCY_TIME     0  // (seconds) Time to wait for bed to "settle" in M190     ////////deb changes
 #define TEMP_BED_WINDOW              1  // (°C) Temperature proximity for the "temperature reached" timer
@@ -611,7 +611,7 @@
 
 // Below this temperature the heater will be switched off
 // because it probably indicates a broken thermistor wire.
-#define HEATER_0_MINTEMP   5
+#define HEATER_0_MINTEMP   1  // BIOPRINTER: Minimum cooling temperature for Peltier (1°C safety limit)
 #define HEATER_1_MINTEMP   5
 #define HEATER_2_MINTEMP   5
 #define HEATER_3_MINTEMP   5
@@ -625,7 +625,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 275
+#define HEATER_0_MAXTEMP  60  // BIOPRINTER: Maximum heating temperature for Peltier (60°C safety limit)
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -642,7 +642,7 @@
  * (especially before PID tuning). Setting the target temperature too close to MAXTEMP guarantees
  * a MAXTEMP shutdown! Use these values to forbid temperatures being set too close to MAXTEMP.
  */
-#define HOTEND_OVERSHOOT 15   // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
+#define HOTEND_OVERSHOOT  5   // (°C) BIOPRINTER: Forbid temperatures over MAXTEMP - OVERSHOOT (60-5=55°C max settable)
 #define BED_OVERSHOOT    10   // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
 #define COOLER_OVERSHOOT  2   // (°C) Forbid temperatures closer than OVERSHOOT
 

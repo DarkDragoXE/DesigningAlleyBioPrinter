@@ -878,14 +878,21 @@ void reset_stepper_drivers();    // Called by settings.load / settings.reset
 #endif
 
 #ifndef ENABLE_STEPPER_E1
-  #if (E_STEPPERS > 1 || ENABLED(E_DUAL_STEPPER_DRIVERS)) && HAS_E1_ENABLE
+  #if ENABLED(PNEUMATIC_EXTRUDER_E1)
+    // BIOPRINTER: Pneumatic E1 should NOT be enabled by stepper code
+    // PC3 is controlled directly during extrusion moves only
+    #define  ENABLE_STEPPER_E1() NOOP
+  #elif (E_STEPPERS > 1 || ENABLED(E_DUAL_STEPPER_DRIVERS)) && HAS_E1_ENABLE
     #define  ENABLE_STEPPER_E1() E1_ENABLE_WRITE( E_ENABLE_ON)
   #else
     #define  ENABLE_STEPPER_E1() NOOP
   #endif
 #endif
 #ifndef DISABLE_STEPPER_E1
-  #if (E_STEPPERS > 1 || ENABLED(E_DUAL_STEPPER_DRIVERS)) && HAS_E1_ENABLE
+  #if ENABLED(PNEUMATIC_EXTRUDER_E1)
+    // BIOPRINTER: Pneumatic E1 disable does nothing (valve control only during extrusion)
+    #define DISABLE_STEPPER_E1() NOOP
+  #elif (E_STEPPERS > 1 || ENABLED(E_DUAL_STEPPER_DRIVERS)) && HAS_E1_ENABLE
     #define DISABLE_STEPPER_E1() E1_ENABLE_WRITE(!E_ENABLE_ON)
   #else
     #define DISABLE_STEPPER_E1() NOOP
