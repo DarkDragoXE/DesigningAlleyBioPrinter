@@ -90,6 +90,10 @@ void GcodeSuite::M42() {
       const bool is_custom_bed = (pin == CUSTOM_BED_PIN);
       if (!is_custom_bed)
     #endif
+    // BIOPRINTER: Allow direct control of CUSTOM_UV_LED_PIN even if it's a fan pin
+    #if CUSTOM_UV_LED_PIN
+      if (pin != CUSTOM_UV_LED_PIN)
+    #endif
     {
       switch (pin) {
         #if HAS_FAN0
