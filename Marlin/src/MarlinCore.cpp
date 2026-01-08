@@ -319,6 +319,11 @@ bool pin_is_protected(const pin_t pin) {
     if (pin == CUSTOM_BED_PIN) return false;
   #endif
 
+  // BIOPRINTER: Allow M42 control of UV LED pin (used for photopolymer crosslinking)
+  #if CUSTOM_UV_LED_PIN
+    if (pin == CUSTOM_UV_LED_PIN) return false;
+  #endif
+
   #ifdef RUNTIME_ONLY_ANALOG_TO_DIGITAL
     static const pin_t sensitive_pins[] PROGMEM = { SENSITIVE_PINS };
     const size_t pincount = COUNT(sensitive_pins);
@@ -1168,6 +1173,12 @@ void setup() {
   #if CUSTOM_BED_PIN
     pinMode(CUSTOM_BED_PIN, OUTPUT);
     digitalWrite(CUSTOM_BED_PIN, BED_CUSTOM_PIN_STATE);
+  #endif
+
+  // BIOPRINTER: Initialize UV LED pin (M42 P61 control for photopolymer crosslinking)
+  #if CUSTOM_UV_LED_PIN
+    pinMode(CUSTOM_UV_LED_PIN, OUTPUT);
+    digitalWrite(CUSTOM_UV_LED_PIN, UV_LED_CUSTOM_PIN_STATE);
   #endif
 
   // Check startup - does nothing if bootloader sets MCUSR to 0

@@ -154,6 +154,15 @@
 #define CUSTOM_BED_PIN  60  // MATCHED TO KESHAVA
 #define BED_CUSTOM_PIN_STATE LOW  // Start in cooling mode
 
+// BIOPRINTER: UV LED pin for photopolymer crosslinking via M42
+// M42 P61 S0 = UV LED off (0%)
+// M42 P61 S64 = UV LED 25% intensity
+// M42 P61 S128 = UV LED 50% intensity
+// M42 P61 S191 = UV LED 75% intensity
+// M42 P61 S255 = UV LED 100% intensity (full power)
+#define CUSTOM_UV_LED_PIN  61  // PD13 (FAN3_PIN)
+#define UV_LED_CUSTOM_PIN_STATE LOW  // Start with UV LED off
+
 // Name displayed in the LCD "Ready" message and Info menu
 //#define CUSTOM_MACHINE_NAME "DA Bio Printer"
 
