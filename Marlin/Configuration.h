@@ -255,7 +255,7 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 2
+#define EXTRUDERS 4  // BIOPRINTER: 2 real extruders (E0 syringe, E1 pneumatic) + 2 motor slots for I/J axes (E2/E3 hardware)
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -566,8 +566,8 @@
 ///////////////////////// deb changes - MATCHED TO KESHAVAFIRMWARE
 #define TEMP_SENSOR_0 1  // E0 hotend - 100kΩ thermistor type 1
 #define TEMP_SENSOR_1 1  // E1 hotend - 100kΩ thermistor type 1 (CHANGED from 998)
-#define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_3 0
+#define TEMP_SENSOR_2 998  // BIOPRINTER: Dummy sensor for I axis (Motor 6 - not a hotend)
+#define TEMP_SENSOR_3 998  // BIOPRINTER: Dummy sensor for J axis (Motor 7 - not a hotend)
 #define TEMP_SENSOR_4 0
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
@@ -1435,8 +1435,8 @@
 #define Y_ENABLE_ON 0
 #define Z_ENABLE_ON 0
 #define E_ENABLE_ON 0 // For all extruders
-//#define I_ENABLE_ON 0
-//#define J_ENABLE_ON 0
+#define I_ENABLE_ON 0  // BIOPRINTER: I axis (U) enable signal (0 = active LOW)
+#define J_ENABLE_ON 0  // BIOPRINTER: J axis (V) enable signal (0 = active LOW)
 //#define K_ENABLE_ON 0
 //#define U_ENABLE_ON 0
 //#define V_ENABLE_ON 0
@@ -1468,8 +1468,8 @@
 #define INVERT_X_DIR true
 #define INVERT_Y_DIR true
 #define INVERT_Z_DIR false
-//#define INVERT_I_DIR false  // I axis disabled - not used
-//#define INVERT_J_DIR false
+#define INVERT_I_DIR false  // BIOPRINTER: I axis (U) direction - adjust after motor installation
+#define INVERT_J_DIR false  // BIOPRINTER: J axis (V) direction - adjust after motor installation
 //#define INVERT_K_DIR false
 //#define INVERT_U_DIR false
 //#define INVERT_V_DIR false

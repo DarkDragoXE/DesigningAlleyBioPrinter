@@ -1333,7 +1333,7 @@
 // @section lcd
 
 #if HAS_MANUAL_MOVE_MENU
-  #define MANUAL_FEEDRATE { 20*60, 20*60, 3*60, 3*60 } // BIOPRINTER: gentle manual control (20mm/s XY, 3mm/s ZE - harmonized)
+  #define MANUAL_FEEDRATE { 20*60, 20*60, 3*60, 5*60, 5*60, 3*60 } // BIOPRINTER: manual control (20mm/s XY, 3mm/s Z, 5mm/s IJ, 3mm/s E)
   #define FINE_MANUAL_MOVE 0.025    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
   #if IS_ULTIPANEL
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
