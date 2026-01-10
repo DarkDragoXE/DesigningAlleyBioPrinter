@@ -1043,14 +1043,14 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 500, 500 } // X, Y, Z, E0, E1
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 3200, 500 } // X, Y, Z, E0 (NEMA 11 Tr5×1mm: 3200 steps/mm), E1
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 30, 30, 5, 5 } // BIOPRINTER: gentle speeds for cell viability
+#define DEFAULT_MAX_FEEDRATE          { 30, 30, 5, 3 } // BIOPRINTER: E0 reduced for NEMA 11 (lower torque)
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1063,7 +1063,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 150, 150, 50, 2000 } // BIOPRINTER: gentle acceleration for all axes
+#define DEFAULT_MAX_ACCELERATION      { 150, 150, 50, 1000 } // BIOPRINTER: E0 reduced for NEMA 11 (lower torque)
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
