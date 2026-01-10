@@ -1053,7 +1053,7 @@
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES    { 50, 50, 10, 10 } // BIOPRINTER: safety limits
+  #define MAX_FEEDRATE_EDIT_VALUES    { 50, 50, 10, 10, 10, 10 } // X, Y, Z, I, J, E (bioprinter: safety limits)
 #endif
 
 /**
@@ -1066,7 +1066,7 @@
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES       { 300, 300, 100, 5000 } // BIOPRINTER: safety limits
+  #define MAX_ACCEL_EDIT_VALUES       { 300, 300, 100, 200, 200, 5000 } // X, Y, Z, I, J, E (bioprinter: safety limits)
 #endif
 
 /**
@@ -1447,8 +1447,8 @@
 #define DISABLE_X false
 #define DISABLE_Y false
 #define DISABLE_Z false
-//#define DISABLE_I false
-//#define DISABLE_J false
+#define DISABLE_I false  // BIOPRINTER: I axis (U) - keep enabled for printhead positioning
+#define DISABLE_J false  // BIOPRINTER: J axis (V) - keep enabled for printhead positioning
 //#define DISABLE_K false
 //#define DISABLE_U false
 //#define DISABLE_V false
@@ -1921,7 +1921,7 @@
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
-#define HOMING_FEEDRATE_MM_M { (20*60), (20*60), (3*60) }  // BIOPRINTER: gentle homing (harmonized with manual speeds)
+#define HOMING_FEEDRATE_MM_M { (20*60), (20*60), (3*60), (5*60), (5*60) }  // X, Y, Z, I, J (bioprinter: gentle homing)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
