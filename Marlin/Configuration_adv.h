@@ -2906,7 +2906,7 @@
   #endif
 
   #if AXIS_IS_TMC(I)
-    #define I_CURRENT      800
+    #define I_CURRENT      600  // BIOPRINTER: NEMA 8 JK20HST30-0604 rated current (0.6A)
     #define I_CURRENT_HOME I_CURRENT
     #define I_MICROSTEPS    16
     #define I_RSENSE         0.11
@@ -2916,7 +2916,7 @@
   #endif
 
   #if AXIS_IS_TMC(J)
-    #define J_CURRENT      800
+    #define J_CURRENT      600  // BIOPRINTER: NEMA 8 JK20HST30-0604 rated current (0.6A)
     #define J_CURRENT_HOME J_CURRENT
     #define J_MICROSTEPS    16
     #define J_RSENSE         0.11
