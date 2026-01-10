@@ -1042,7 +1042,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 400, 400, 3200, 500 } // X, Y, Z, I, J, E0, E1 (I/J placeholder: 400 steps/mm)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 3200, 3200, 3200, 500 }  // X, Y, Z, I (NEMA 8 Tr?×1mm: 3200), J (NEMA 8 Tr?×1mm: 3200), E0 (NEMA 11), E1
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
