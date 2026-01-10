@@ -227,11 +227,11 @@
  * Regardless of these settings the axes are internally named I, J, K, U, V, W.
  */
 #ifdef I_DRIVER_TYPE
-  #define AXIS4_NAME 'I' // BIOPRINTER: I axis - Printhead 0 Z height adjustment (linear)
+  #define AXIS4_NAME 'U' // BIOPRINTER: U axis (internal I) - Printhead 0 Z height adjustment (linear)
   //#define AXIS4_ROTATES  // LINEAR axis - moves printhead vertically
 #endif
 #ifdef J_DRIVER_TYPE
-  #define AXIS5_NAME 'J' // BIOPRINTER: J axis - Printhead 1 Z height adjustment (linear)
+  #define AXIS5_NAME 'V' // BIOPRINTER: V axis (internal J) - Printhead 1 Z height adjustment (linear)
   //#define AXIS5_ROTATES  // LINEAR axis - moves printhead vertically
 #endif
 #ifdef K_DRIVER_TYPE
@@ -903,8 +903,8 @@
 #define USE_YMIN_PLUG
 #define USE_ZMIN_PLUG
 #define USE_EMIN_PLUG  // E0 extruder endstop for syringe refill homing
-//#define USE_IMIN_PLUG  // I axis no longer needed - E0 has native homing support
-//#define USE_JMIN_PLUG
+#define USE_IMIN_PLUG  // BIOPRINTER: I axis (U) endstop for printhead 0 Z homing
+#define USE_JMIN_PLUG  // BIOPRINTER: J axis (V) endstop for printhead 1 Z homing
 //#define USE_KMIN_PLUG
 //#define USE_UMIN_PLUG
 //#define USE_VMIN_PLUG
@@ -1529,8 +1529,10 @@
 #define Z_MIN_POS 0
 #define E_MIN_POS -500  // E0 extruder minimum position (large negative for bioprinter homing)
 #define E_MAX_POS 500   // E0 extruder maximum position (large positive for bioink extrusion)
-//#define I_MIN_POS 0 //// I axis disabled - not used
-//#define I_MAX_POS 475  //// I axis disabled - not used
+#define I_MIN_POS 0     // BIOPRINTER: I axis (U) minimum - printhead 0 at endstop
+#define I_MAX_POS 50    // BIOPRINTER: I axis (U) maximum - 50mm travel (placeholder, adjust after motor specs)
+#define J_MIN_POS 0     // BIOPRINTER: J axis (V) minimum - printhead 1 at endstop
+#define J_MAX_POS 50    // BIOPRINTER: J axis (V) maximum - 50mm travel (placeholder, adjust after motor specs)
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 200
