@@ -1082,7 +1082,7 @@
 
 // @section motion
 
-#define AXIS_RELATIVE_MODES { false, false, false, false } // X, Y, Z, E
+#define AXIS_RELATIVE_MODES { false, false, false, false, false, false } // X, Y, Z, I, J, E
 
 // Add a Duplicate option for well-separated conjoined nozzles
 //#define MULTI_NOZZLE_DUPLICATION
