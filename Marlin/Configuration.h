@@ -194,15 +194,14 @@
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
-//#define I_DRIVER_TYPE  A4988
-//#define J_DRIVER_TYPE  A4988
+#define I_DRIVER_TYPE  TMC2209  // BIOPRINTER: I axis - Printhead 0 (E0) Z height adjustment (Motor 6)
+#define J_DRIVER_TYPE  TMC2209  // BIOPRINTER: J axis - Printhead 1 (E1) Z height adjustment (Motor 7)
 //#define K_DRIVER_TYPE  A4988
 //#define U_DRIVER_TYPE  A4988
 //#define V_DRIVER_TYPE  A4988
 //#define W_DRIVER_TYPE  A4988
 #define E0_DRIVER_TYPE TMC2209
 #define E1_DRIVER_TYPE A4988  // BIOPRINTER: E1 is pneumatic, not TMC - use generic driver type
-//#define I_DRIVER_TYPE  A4988  // I axis no longer needed - E0 has native homing support
 //#define E2_DRIVER_TYPE TMC2209
 //#define E3_DRIVER_TYPE A4988
 //#define E4_DRIVER_TYPE A4988
@@ -228,12 +227,12 @@
  * Regardless of these settings the axes are internally named I, J, K, U, V, W.
  */
 #ifdef I_DRIVER_TYPE
-  #define AXIS4_NAME 'A' // :['A', 'B', 'C', 'U', 'V', 'W']
-  #define AXIS4_ROTATES
+  #define AXIS4_NAME 'I' // BIOPRINTER: I axis - Printhead 0 Z height adjustment (linear)
+  //#define AXIS4_ROTATES  // LINEAR axis - moves printhead vertically
 #endif
 #ifdef J_DRIVER_TYPE
-  #define AXIS5_NAME 'B' // :['B', 'C', 'U', 'V', 'W']
-  #define AXIS5_ROTATES
+  #define AXIS5_NAME 'J' // BIOPRINTER: J axis - Printhead 1 Z height adjustment (linear)
+  //#define AXIS5_ROTATES  // LINEAR axis - moves printhead vertically
 #endif
 #ifdef K_DRIVER_TYPE
   #define AXIS6_NAME 'C' // :['C', 'U', 'V', 'W']
@@ -1043,14 +1042,14 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 3200, 500 } // X, Y, Z, E0 (NEMA 11 Tr5×1mm: 3200 steps/mm), E1
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 400, 400, 3200, 500 } // X, Y, Z, I, J, E0, E1 (I/J placeholder: 400 steps/mm)
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 30, 30, 5, 3 } // BIOPRINTER: E0 reduced for NEMA 11 (lower torque)
+#define DEFAULT_MAX_FEEDRATE          { 30, 30, 5, 5, 5, 3 } // X, Y, Z, I, J, E0 (I/J: 5mm/s conservative)
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1063,7 +1062,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 150, 150, 50, 1000 } // BIOPRINTER: E0 reduced for NEMA 11 (lower torque)
+#define DEFAULT_MAX_ACCELERATION      { 150, 150, 50, 100, 100, 1000 } // X, Y, Z, I, J, E0 (I/J: 100mm/s² conservative)
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1510,8 +1509,8 @@
 #define X_HOME_DIR -1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
-//#define I_HOME_DIR -1  // I axis no longer needed - E0 has native homing support
-//#define J_HOME_DIR -1
+#define I_HOME_DIR -1  // BIOPRINTER: I axis homes to MIN endstop (printhead 0 down)
+#define J_HOME_DIR -1  // BIOPRINTER: J axis homes to MIN endstop (printhead 1 down)
 //#define K_HOME_DIR -1
 //#define U_HOME_DIR -1
 //#define V_HOME_DIR -1
