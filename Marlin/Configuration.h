@@ -903,8 +903,8 @@
 #define USE_YMIN_PLUG
 #define USE_ZMIN_PLUG
 #define USE_EMIN_PLUG  // E0 extruder endstop for syringe refill homing
-#define USE_IMAX_PLUG  // BIOPRINTER: I axis (U) MAX endstop at top
-#define USE_JMAX_PLUG  // BIOPRINTER: J axis (V) MAX endstop at top
+#define USE_IMIN_PLUG  // BIOPRINTER: I axis (U) MIN endstop
+#define USE_JMIN_PLUG  // BIOPRINTER: J axis (V) MIN endstop
 //#define USE_KMIN_PLUG
 //#define USE_UMIN_PLUG
 //#define USE_VMIN_PLUG
@@ -975,9 +975,9 @@
 #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define I_MIN_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
+#define I_MIN_ENDSTOP_INVERTING true   // BIOPRINTER: Invert U axis endstop logic
 #define E0_MIN_ENDSTOP_INVERTING false  // E0 endstop for syringe refill homing
-#define J_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define J_MIN_ENDSTOP_INVERTING true  // BIOPRINTER: Invert V axis endstop logic
 #define K_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define U_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define V_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -985,8 +985,8 @@
 #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define I_MAX_ENDSTOP_INVERTING true  // BIOPRINTER: Invert U axis endstop logic
-#define J_MAX_ENDSTOP_INVERTING true  // BIOPRINTER: Invert V axis endstop logic
+#define I_MIN_ENDSTOP_INVERTING true  // BIOPRINTER: Invert U axis endstop logic
+#define J_MIN_ENDSTOP_INVERTING true  // BIOPRINTER: Invert V axis endstop logic
 #define K_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define U_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define V_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -1509,8 +1509,8 @@
 #define X_HOME_DIR -1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
-#define I_HOME_DIR 1   // BIOPRINTER: I axis homes to MAX endstop (upward to top)
-#define J_HOME_DIR 1   // BIOPRINTER: J axis homes to MAX endstop (upward to top)
+#define I_HOME_DIR -1  // BIOPRINTER: I axis homes downward
+#define J_HOME_DIR -1  // BIOPRINTER: J axis homes downward
 //#define K_HOME_DIR -1
 //#define U_HOME_DIR -1
 //#define V_HOME_DIR -1
