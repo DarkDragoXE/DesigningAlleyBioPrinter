@@ -903,8 +903,8 @@
 #define USE_YMIN_PLUG
 #define USE_ZMIN_PLUG
 #define USE_EMIN_PLUG  // E0 extruder endstop for syringe refill homing
-#define USE_IMIN_PLUG  // BIOPRINTER: I axis (U) endstop for printhead 0 Z homing
-#define USE_JMIN_PLUG  // BIOPRINTER: J axis (V) endstop for printhead 1 Z homing
+#define USE_IMAX_PLUG  // BIOPRINTER: I axis (U) MAX endstop at top
+#define USE_JMAX_PLUG  // BIOPRINTER: J axis (V) MAX endstop at top
 //#define USE_KMIN_PLUG
 //#define USE_UMIN_PLUG
 //#define USE_VMIN_PLUG
@@ -1509,8 +1509,8 @@
 #define X_HOME_DIR -1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
-#define I_HOME_DIR -1  // BIOPRINTER: I axis homes to MIN endstop (printhead 0 down)
-#define J_HOME_DIR -1  // BIOPRINTER: J axis homes to MIN endstop (printhead 1 down)
+#define I_HOME_DIR 1   // BIOPRINTER: I axis homes to MAX endstop (upward to top)
+#define J_HOME_DIR 1   // BIOPRINTER: J axis homes to MAX endstop (upward to top)
 //#define K_HOME_DIR -1
 //#define U_HOME_DIR -1
 //#define V_HOME_DIR -1
@@ -1529,10 +1529,10 @@
 #define Z_MIN_POS 0
 #define E_MIN_POS -500  // E0 extruder minimum position (large negative for bioprinter homing)
 #define E_MAX_POS 500   // E0 extruder maximum position (large positive for bioink extrusion)
-#define I_MIN_POS 0     // BIOPRINTER: I axis (U) minimum - printhead 0 at endstop
-#define I_MAX_POS 50    // BIOPRINTER: I axis (U) maximum - 50mm travel (placeholder, adjust after motor specs)
-#define J_MIN_POS 0     // BIOPRINTER: J axis (V) minimum - printhead 1 at endstop
-#define J_MAX_POS 50    // BIOPRINTER: J axis (V) maximum - 50mm travel (placeholder, adjust after motor specs)
+#define I_MIN_POS -50   // BIOPRINTER: I axis (U) minimum - 50mm below MAX endstop
+#define I_MAX_POS 0     // BIOPRINTER: I axis (U) maximum - at top endstop
+#define J_MIN_POS -50   // BIOPRINTER: J axis (V) minimum - 50mm below MAX endstop
+#define J_MAX_POS 0     // BIOPRINTER: J axis (V) maximum - at top endstop
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 200
