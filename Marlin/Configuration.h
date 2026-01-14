@@ -1530,9 +1530,9 @@
 #define E_MIN_POS -500  // E0 extruder minimum position (large negative for bioprinter homing)
 #define E_MAX_POS 500   // E0 extruder maximum position (large positive for bioink extrusion)
 #define I_MIN_POS -50   // BIOPRINTER: I axis (U) minimum - 50mm below MAX endstop
-#define I_MAX_POS 0     // BIOPRINTER: I axis (U) maximum - at top endstop
+#define I_MAX_POS 50    // BIOPRINTER: I axis (U) maximum - allow travel to endstop
 #define J_MIN_POS -50   // BIOPRINTER: J axis (V) minimum - 50mm below MAX endstop
-#define J_MAX_POS 0     // BIOPRINTER: J axis (V) maximum - at top endstop
+#define J_MAX_POS 50    // BIOPRINTER: J axis (V) maximum - allow travel to endstop
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 200
