@@ -1921,7 +1921,7 @@
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
-#define HOMING_FEEDRATE_MM_M { (20*60), (20*60), (3*60), (5*60), (5*60) }  // X, Y, Z, I, J (bioprinter: gentle homing)
+#define HOMING_FEEDRATE_MM_M { (20*60), (20*60), (3*60), (2*60), (2*60) }  // X, Y, Z, I, J (U/V: 2mm/s slow homing)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
