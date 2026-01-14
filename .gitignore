@@ -169,3 +169,6 @@ __pycache__
 
 # IOLogger logs
 *_log.csv
+
+# Temporary Claude files
+.temp_claude/
