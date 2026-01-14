@@ -295,7 +295,7 @@
 #ifndef I_SERIAL_RX_PIN
   #define I_SERIAL_RX_PIN    I_SERIAL_TX_PIN
 #endif
-#define I_MIN_PIN                           PG13  // E1DET connector
+#define I_MIN_PIN                           PG14  // Motor 6 endstop (J32)
 
 #define J_STEP_PIN                          PE6   // MOTOR 7
 #define J_DIR_PIN                           PA14
@@ -309,7 +309,7 @@
 #ifndef J_SERIAL_RX_PIN
   #define J_SERIAL_RX_PIN    J_SERIAL_TX_PIN
 #endif
-#define J_MIN_PIN                           PG14  // E2DET connector
+#define J_MIN_PIN                           PG15  // Motor 7 endstop (J34)
 
 //
 // Temperature Sensors
