@@ -210,18 +210,19 @@
   #define X_CS_PIN                          PC4
 #endif
 
-#define Y_STEP_PIN                          PG0   // MOTOR 1
-#define Y_DIR_PIN                           PG1
-#define Y_ENABLE_PIN                        PF15
+// BIOPRINTER: Y and Z motors swapped - Y uses Motor 2, Z uses Motor 1
+#define Y_STEP_PIN                          PF11  // MOTOR 2 (swapped)
+#define Y_DIR_PIN                           PG3
+#define Y_ENABLE_PIN                        PG5
 #ifndef Y_CS_PIN
-  #define Y_CS_PIN                          PD11
+  #define Y_CS_PIN                          PC6
 #endif
 
-#define Z_STEP_PIN                          PF11  // MOTOR 2
-#define Z_DIR_PIN                           PG3
-#define Z_ENABLE_PIN                        PG5
+#define Z_STEP_PIN                          PG0   // MOTOR 1 (swapped)
+#define Z_DIR_PIN                           PG1
+#define Z_ENABLE_PIN                        PF15
 #ifndef Z_CS_PIN
-  #define Z_CS_PIN                          PC6
+  #define Z_CS_PIN                          PD11
 #endif
 
 #define E0_STEP_PIN                         PG4   // MOTOR 3
@@ -388,10 +389,11 @@
   #define X_SERIAL_TX_PIN                   PC4
   #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
 
-  #define Y_SERIAL_TX_PIN                   PD11
+  // BIOPRINTER: Y and Z serial pins swapped to match motor swap
+  #define Y_SERIAL_TX_PIN                   PC6   // Motor 2 (swapped)
   #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
 
-  #define Z_SERIAL_TX_PIN                   PC6
+  #define Z_SERIAL_TX_PIN                   PD11  // Motor 1 (swapped)
   #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
 
   // I axis shares E0 motor - no separate UART (E0 handles TMC2209)
