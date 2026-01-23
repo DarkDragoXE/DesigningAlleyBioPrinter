@@ -154,14 +154,33 @@
 #define CUSTOM_BED_PIN  60  // MATCHED TO KESHAVA
 #define BED_CUSTOM_PIN_STATE LOW  // Start in cooling mode
 
-// BIOPRINTER: UV LED pin for photopolymer crosslinking via M42
-// M42 P61 S0 = UV LED off (0%)
-// M42 P61 S64 = UV LED 25% intensity
-// M42 P61 S128 = UV LED 50% intensity
-// M42 P61 S191 = UV LED 75% intensity
-// M42 P61 S255 = UV LED 100% intensity (full power)
-#define CUSTOM_UV_LED_PIN  61  // PD13 (FAN3_PIN)
-#define UV_LED_CUSTOM_PIN_STATE LOW  // Start with UV LED off
+// BIOPRINTER: Peltier 1 (Extruder 1) DPDT signal control via M42
+// M42 P61 S0 = DPDT relaxed = COOLING mode for Extruder 1
+// M42 P61 S255 = DPDT energized = HEATING mode for Extruder 1
+#define CUSTOM_PELTIER1_PIN  61  // PD13 (FAN3_PIN) - DPDT signal for Peltier 1
+#define PELTIER1_CUSTOM_PIN_STATE LOW  // Start in cooling mode
+
+// BIOPRINTER: Peltier Bed DPDT signal control via M42
+// M42 P62 S0 = DPDT relaxed = COOLING mode for Bed
+// M42 P62 S255 = DPDT energized = HEATING mode for Bed
+#define CUSTOM_PELTIER_BED_PIN  62  // PD14 (FAN4_PIN) - DPDT signal for Bed Peltier
+#define PELTIER_BED_CUSTOM_PIN_STATE LOW  // Start in cooling mode
+
+// BIOPRINTER: UV LED 1 intensity control via M42 (photopolymer crosslinking)
+// M42 P8 S0 = UV LED 1 OFF
+// M42 P8 S64 = UV LED 1 25% intensity
+// M42 P8 S128 = UV LED 1 50% intensity
+// M42 P8 S255 = UV LED 1 100% intensity (full power)
+#define CUSTOM_UV_LED1_PIN  8  // PA8 (FAN0_PIN) - UV LED 1
+#define UV_LED1_CUSTOM_PIN_STATE LOW  // Start with UV LED 1 off
+
+// BIOPRINTER: UV LED 2 intensity control via M42 (photopolymer crosslinking)
+// M42 P69 S0 = UV LED 2 OFF
+// M42 P69 S64 = UV LED 2 25% intensity
+// M42 P69 S128 = UV LED 2 50% intensity
+// M42 P69 S255 = UV LED 2 100% intensity (full power)
+#define CUSTOM_UV_LED2_PIN  69  // PE5 (FAN1_PIN) - UV LED 2
+#define UV_LED2_CUSTOM_PIN_STATE LOW  // Start with UV LED 2 off
 
 // Name displayed in the LCD "Ready" message and Info menu
 //#define CUSTOM_MACHINE_NAME "DA Bio Printer"
@@ -255,7 +274,7 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 4  // BIOPRINTER: 2 real extruders (E0 syringe, E1 pneumatic) + 2 motor slots for I/J axes (E2/E3 hardware)
+#define EXTRUDERS 2  // BIOPRINTER: E0 (syringe), E1 (pneumatic)
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -566,8 +585,8 @@
 ///////////////////////// deb changes - MATCHED TO KESHAVAFIRMWARE
 #define TEMP_SENSOR_0 1  // E0 hotend - 100kΩ thermistor type 1
 #define TEMP_SENSOR_1 1  // E1 hotend - 100kΩ thermistor type 1 (CHANGED from 998)
-#define TEMP_SENSOR_2 998  // BIOPRINTER: Dummy sensor for I axis (Motor 6 - not a hotend)
-#define TEMP_SENSOR_3 998  // BIOPRINTER: Dummy sensor for J axis (Motor 7 - not a hotend)
+#define TEMP_SENSOR_2 0
+#define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
@@ -641,7 +660,7 @@
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP      150
+#define BED_MAXTEMP      40
 #define CHAMBER_MAXTEMP  60
 
 /**
@@ -973,11 +992,11 @@
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define I_MIN_ENDSTOP_INVERTING true   // BIOPRINTER: Invert U axis endstop logic
-#define E0_MIN_ENDSTOP_INVERTING false  // E0 endstop for syringe refill homing
-#define J_MIN_ENDSTOP_INVERTING true  // BIOPRINTER: Invert V axis endstop logic
+#define E0_MIN_ENDSTOP_INVERTING true   // E0 endstop inverted
+#define J_MIN_ENDSTOP_INVERTING true   // BIOPRINTER: Invert V axis endstop logic (same as I axis)
 #define K_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define U_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define V_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -985,8 +1004,8 @@
 #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define I_MIN_ENDSTOP_INVERTING true  // BIOPRINTER: Invert U axis endstop logic
-#define J_MIN_ENDSTOP_INVERTING true  // BIOPRINTER: Invert V axis endstop logic
+#define I_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define J_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define K_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define U_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define V_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -1042,18 +1061,18 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 3200, 3200, 3200, 500 }  // X, Y, Z, I (NEMA 8 Tr?×1mm: 3200), J (NEMA 8 Tr?×1mm: 3200), E0 (NEMA 11), E1
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 6400, 6400, 6400, 3200, 3200, 3200, 500 }  // X/Y/Z: 6400 (measured 4x correction), I/J/E0: 3200
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 30, 30, 5, 5, 5, 3 } // X, Y, Z, I, J, E0 (I/J: 5mm/s conservative)
+#define DEFAULT_MAX_FEEDRATE          { 10, 10, 3, 3, 3, 2, 2 }  // X/Y: 10mm/s, Z/I/J: 3mm/s, E: 2mm/s
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES    { 50, 50, 10, 10, 10, 10 } // X, Y, Z, I, J, E (bioprinter: safety limits)
+  #define MAX_FEEDRATE_EDIT_VALUES    { 20, 20, 5, 5, 5, 5 } // X, Y, Z, I, J, E (bioprinter: safety limits)
 #endif
 
 /**
@@ -1062,7 +1081,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 150, 150, 50, 100, 100, 1000 } // X, Y, Z, I, J, E0 (I/J: 100mm/s² conservative)
+#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 100, 100, 1000, 1000 }  // X, Y, Z, I, J, E0, E1
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1119,7 +1138,7 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.008 // BIOPRINTER: tight corners for precision (harmonized with gentle acceleration)
+  #define JUNCTION_DEVIATION_MM 0.02 // BIOPRINTER: tight corners for precision (harmonized with gentle acceleration)
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
                                       // for small segments (< 1mm) with large junction angles (> 135°).
 #endif
@@ -1465,11 +1484,11 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR true
-#define INVERT_Y_DIR true
-#define INVERT_Z_DIR false
-#define INVERT_I_DIR false  // BIOPRINTER: I axis (U) direction - adjust after motor installation
-#define INVERT_J_DIR false  // BIOPRINTER: J axis (V) direction - adjust after motor installation
+#define INVERT_X_DIR false  // BIOPRINTER: Changed from true to fix inverted motion
+#define INVERT_Y_DIR true   // BIOPRINTER: Changed back - was inverted
+#define INVERT_Z_DIR false  // BIOPRINTER: Endstop at top = Z_MIN, +Z moves down
+#define INVERT_I_DIR false  // BIOPRINTER: I axis (U) direction
+#define INVERT_J_DIR false  // BIOPRINTER: J axis (V) direction - same as I axis
 //#define INVERT_K_DIR false
 //#define INVERT_U_DIR false
 //#define INVERT_V_DIR false
@@ -1499,7 +1518,7 @@
  */
 //#define Z_IDLE_HEIGHT Z_HOME_POS
 
-//#define Z_HOMING_HEIGHT  4      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_HOMING_HEIGHT  0      // (mm) DISABLED - No Z movement before homing X/Y
                                   // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
 //#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z
@@ -1520,25 +1539,25 @@
 // @section machine
 
 // The size of the printable area
-#define X_BED_SIZE 200
+#define X_BED_SIZE 500
 #define Y_BED_SIZE 115  // BIOPRINTER: Actual physical Y limit
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define E_MIN_POS -500  // E0 extruder minimum position (large negative for bioprinter homing)
-#define E_MAX_POS 500   // E0 extruder maximum position (large positive for bioink extrusion)
-#define I_MIN_POS -50   // BIOPRINTER: I axis (U) minimum - 50mm below MAX endstop
-#define I_MAX_POS 50    // BIOPRINTER: I axis (U) maximum - allow travel to endstop
-#define J_MIN_POS -50   // BIOPRINTER: J axis (V) minimum - 50mm below MAX endstop
-#define J_MAX_POS 50    // BIOPRINTER: J axis (V) maximum - allow travel to endstop
+#define E_MIN_POS 0     // E0 extruder homes to 0 position
+#define E_MAX_POS 1000  // E0 extruder maximum position (large positive for bioink extrusion)
+#define I_MIN_POS 0     // BIOPRINTER: I axis (U) minimum - endstop at 0
+#define I_MAX_POS 50    // BIOPRINTER: I axis (U) maximum travel
+#define J_MIN_POS 0     // BIOPRINTER: J axis (V) minimum - endstop at 0
+#define J_MAX_POS 50    // BIOPRINTER: J axis (V) maximum travel
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 200
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 200
+
 //#define I_MAX_POS 475 //// deb changes
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
@@ -1568,8 +1587,8 @@
   #define MIN_SOFTWARE_ENDSTOP_X
   #define MIN_SOFTWARE_ENDSTOP_Y
   #define MIN_SOFTWARE_ENDSTOP_Z
-  //#define MIN_SOFTWARE_ENDSTOP_I////// deb changes I
-  #define MIN_SOFTWARE_ENDSTOP_J
+  #define MIN_SOFTWARE_ENDSTOP_I   // BIOPRINTER: Enabled for I axis
+  #define MIN_SOFTWARE_ENDSTOP_J   // BIOPRINTER: Enabled for J axis
   #define MIN_SOFTWARE_ENDSTOP_K
   #define MIN_SOFTWARE_ENDSTOP_U
   #define MIN_SOFTWARE_ENDSTOP_V
@@ -1582,8 +1601,8 @@
   #define MAX_SOFTWARE_ENDSTOP_X
   #define MAX_SOFTWARE_ENDSTOP_Y
   #define MAX_SOFTWARE_ENDSTOP_Z
-  //#define MAX_SOFTWARE_ENDSTOP_I
-  #define MAX_SOFTWARE_ENDSTOP_J
+  #define MAX_SOFTWARE_ENDSTOP_I   // BIOPRINTER: Enabled for I axis
+  #define MAX_SOFTWARE_ENDSTOP_J   // BIOPRINTER: Enabled for J axis
   #define MAX_SOFTWARE_ENDSTOP_K
   #define MAX_SOFTWARE_ENDSTOP_U
   #define MAX_SOFTWARE_ENDSTOP_V
@@ -1921,7 +1940,7 @@
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
-#define HOMING_FEEDRATE_MM_M { (10*60), (10*60), (3*60), (5*60), (5*60) }  // X/Y: 10mm/s, Z: 3mm/s, U/V: 5mm/s
+#define HOMING_FEEDRATE_MM_M { (5*60), (5*60), (2*60), (2*60), (2*60) }  // X/Y: 5mm/s, Z/U/V: 2mm/s
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS

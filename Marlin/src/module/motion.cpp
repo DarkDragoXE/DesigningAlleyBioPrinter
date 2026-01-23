@@ -2267,7 +2267,11 @@ void set_axis_is_at_home(const AxisEnum axis) {
   #elif ENABLED(DELTA)
     current_position[axis] = (axis == Z_AXIS) ? DIFF_TERN(HAS_BED_PROBE, delta_height, probe.offset.z) : base_home_pos(axis);
   #else
-    current_position[axis] = base_home_pos(axis);
+    // BIOPRINTER: E axis homing - set to E_MIN_POS (base_home_pos doesn't support E axis)
+    if (axis == E_AXIS)
+      current_position.e = E_MIN_POS;
+    else
+      current_position[axis] = base_home_pos(axis);
   #endif
 
   /**

@@ -56,7 +56,7 @@
 #define E0_DIAG_PIN                         PG12  // E0DET
 #define E1_DIAG_PIN                         PG13  // E1DET
 #define E2_DIAG_PIN                         PG14  // E2DET
-#define E3_DIAG_PIN                         PG15  // E3DET
+// #define E3_DIAG_PIN                         PG15  // E3DET - DISABLED: Pin used for J_MIN_PIN
 
 //
 // Z Probe (when not Z_MIN_PIN)
@@ -162,7 +162,7 @@
 #define FIL_RUNOUT_PIN                      PG12  // E0DET   //// deb changes
 #define FIL_RUNOUT2_PIN                     PG13  // E1DET
 #define FIL_RUNOUT3_PIN                     PG14  // E2DET
-#define FIL_RUNOUT4_PIN                     PG15  // E3DET
+// #define FIL_RUNOUT4_PIN                     PG15  // E3DET - DISABLED: Pin used for J_MIN_PIN
 //
 // Additional Axis Endstops (for extruder homing)
 //

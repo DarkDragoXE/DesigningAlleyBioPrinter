@@ -313,15 +313,34 @@ bool wait_for_heatup = true;
 #endif
 
 bool pin_is_protected(const pin_t pin) {
-  // BIOPRINTER: Allow M42 control of custom bed pin (used for Peltier mode)
-  // MATCHED TO KESHAVA: CUSTOM_BED_PIN is not in SENSITIVE_PINS, so no protection needed
-  #if CUSTOM_BED_PIN
+  // BIOPRINTER: Allow M42 control of Peltier DPDT signal pins
+  // These pins control DPDT relays for heating/cooling mode selection
+
+  // P60 (PD12/FAN2) - Peltier 0 (Extruder 0) DPDT signal
+  #ifdef CUSTOM_BED_PIN
     if (pin == CUSTOM_BED_PIN) return false;
   #endif
 
-  // BIOPRINTER: Allow M42 control of UV LED pin (used for photopolymer crosslinking)
-  #if CUSTOM_UV_LED_PIN
-    if (pin == CUSTOM_UV_LED_PIN) return false;
+  // P61 (PD13/FAN3) - Peltier 1 (Extruder 1) DPDT signal
+  #ifdef CUSTOM_PELTIER1_PIN
+    if (pin == CUSTOM_PELTIER1_PIN) return false;
+  #endif
+
+  // P62 (PD14/FAN4) - Peltier Bed DPDT signal
+  #ifdef CUSTOM_PELTIER_BED_PIN
+    if (pin == CUSTOM_PELTIER_BED_PIN) return false;
+  #endif
+
+  // BIOPRINTER: Allow M42 control of UV LED pins (photopolymer crosslinking)
+
+  // P8 (PA8/FAN0) - UV LED 1 intensity control
+  #ifdef CUSTOM_UV_LED1_PIN
+    if (pin == CUSTOM_UV_LED1_PIN) return false;
+  #endif
+
+  // P69 (PE5/FAN1) - UV LED 2 intensity control
+  #ifdef CUSTOM_UV_LED2_PIN
+    if (pin == CUSTOM_UV_LED2_PIN) return false;
   #endif
 
   #ifdef RUNTIME_ONLY_ANALOG_TO_DIGITAL

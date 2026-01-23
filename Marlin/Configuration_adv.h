@@ -733,9 +733,17 @@
  *   DPDT NO/NC → Peltier (+/-)
  *   Peltier other terminal → 12V SMPS
  */
-//#define PELTIER_CONTROL_E0  // DISABLED: Was blocking heating when mode pin (PD12) is LOW
+// BIOPRINTER: Peltier Bidirectional Temperature Control
+// Enable automatic DPDT switching based on target temperature
+// Pin assignments:
+//   PELTIER_CONTROL_E0: P60 (PD12/FAN2) + HE0 (PA2)
+//   PELTIER_CONTROL_E1: P61 (PD13/FAN3) + HE1 (PA3)
+//   PELTIER_CONTROL_BED: P62 (PD14/FAN4) + HE2 (PB10)
+//#define PELTIER_CONTROL_E0   // Extruder 0 Peltier (DISABLED - use M42 for manual control)
+//#define PELTIER_CONTROL_E1   // Extruder 1 Peltier (DISABLED - use M42 for manual control)
+//#define PELTIER_CONTROL_BED  // Bed Peltier (DISABLED - use M42 for manual control)
 
-#if ENABLED(PELTIER_CONTROL_E0)
+#if ANY(PELTIER_CONTROL_E0, PELTIER_CONTROL_E1, PELTIER_CONTROL_BED)
   // Safety interlock delay when switching between heating and cooling (milliseconds)
   // Ensures MOSFET is fully OFF before DPDT relay changes polarity
   #define PELTIER_INTERLOCK_DELAY_MS  100
@@ -911,10 +919,18 @@
 #define INDIVIDUAL_AXIS_HOMING_MENU        //// deb changes
 #define INDIVIDUAL_AXIS_HOMING_SUBMENU       //// deb changes
 
-// Manual homing settings for I axis (extruder)     //// deb changes
-#define MANUAL_I_HOME_POS 0                 //// deb changes
-#define I_HOME_BUMP_MM 2                 //// deb changes
-#define HOMING_FEEDRATE_I (10*60)           //// deb changes
+// Manual homing settings for I axis (U)
+#define MANUAL_I_HOME_POS 0
+#define I_HOME_BUMP_MM 2
+#define HOMING_FEEDRATE_I (2*60)  // 2mm/s - SLOW
+
+// Manual homing settings for J axis (V) - MUST MATCH I axis
+#define MANUAL_J_HOME_POS 0
+#define J_HOME_BUMP_MM 2
+#define HOMING_FEEDRATE_J (2*60)  // 2mm/s - SLOW
+
+// Manual homing settings for E axis (syringe)
+#define HOMING_FEEDRATE_E (1*60)  // 1mm/s - VERY SLOW for syringe
 // @section bltouch
 
 #if ENABLED(BLTOUCH)
@@ -1333,7 +1349,7 @@
 // @section lcd
 
 #if HAS_MANUAL_MOVE_MENU
-  #define MANUAL_FEEDRATE { 20*60, 20*60, 3*60, 5*60, 5*60, 3*60 } // BIOPRINTER: manual control (20mm/s XY, 3mm/s Z, 5mm/s IJ, 3mm/s E)
+  #define MANUAL_FEEDRATE { 150*60, 150*60, 5*60, 5*60, 5*60, 3*60 } // BIOPRINTER: manual control (20mm/s XY, 3mm/s Z, 5mm/s IJ, 3mm/s E)
   #define FINE_MANUAL_MOVE 0.025    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
   #if IS_ULTIPANEL
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
@@ -2361,7 +2377,7 @@
 #elif ENABLED(SDSUPPORT)
   #define BLOCK_BUFFER_SIZE 16
 #else
-  #define BLOCK_BUFFER_SIZE 16
+  #define BLOCK_BUFFER_SIZE 32
 #endif
 
 // @section serial

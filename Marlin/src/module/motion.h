@@ -89,6 +89,10 @@ FORCE_INLINE feedRate_t homing_feedrate(const AxisEnum a) {
       else if (a == W_AXIS) v = homing_feedrate_mm_m.w
     );
   #endif
+  // BIOPRINTER: E axis homing feedrate
+  #ifdef HOMING_FEEDRATE_E
+    if (a == E_AXIS) v = HOMING_FEEDRATE_E;
+  #endif
   return MMM_TO_MMS(v);
 }
 
