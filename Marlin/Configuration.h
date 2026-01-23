@@ -1061,7 +1061,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 6400, 6400, 6400, 3200, 3200, 3200, 500 }  // X/Y/Z: 6400 (measured 4x correction), I/J/E0: 3200
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 400, 400, 400, 3200, 3200, 3200, 500 }  // X/Y/Z: 400 (1600/4), I/J/E0: 3200
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
@@ -1485,7 +1485,7 @@
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR false  // BIOPRINTER: Changed from true to fix inverted motion
-#define INVERT_Y_DIR true   // BIOPRINTER: Changed back - was inverted
+#define INVERT_Y_DIR false  // BIOPRINTER: Fixed inverted direction
 #define INVERT_Z_DIR false  // BIOPRINTER: Endstop at top = Z_MIN, +Z moves down
 #define INVERT_I_DIR false  // BIOPRINTER: I axis (U) direction
 #define INVERT_J_DIR false  // BIOPRINTER: J axis (V) direction - same as I axis
@@ -1539,8 +1539,8 @@
 // @section machine
 
 // The size of the printable area
-#define X_BED_SIZE 500
-#define Y_BED_SIZE 115  // BIOPRINTER: Actual physical Y limit
+#define X_BED_SIZE 280
+#define Y_BED_SIZE 90
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -1554,9 +1554,7 @@
 #define J_MAX_POS 50    // BIOPRINTER: J axis (V) maximum travel
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 200
-#define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS Y_BED_SIZE
+#define Z_MAX_POS 10
 
 //#define I_MAX_POS 475 //// deb changes
 //#define I_MIN_POS 0
